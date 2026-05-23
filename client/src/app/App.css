@@ -1,1 +1,47 @@
-@import 'tailwindcss';
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'General Sans';
+  src: url('/Fonts/G1-Font.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Suisse Intl';
+  src: url('/Fonts/G2-Font.woff2') format('woff2');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-sans: 'Suisse Intl', 'Inter', system-ui, -apple-system, sans-serif;
+  --color-premium-bg: #F5F5F3;
+  --color-premium-text: #0A0A0F;
+  --color-footer-huge: #05060A;
+}
+
+@utility antialiased {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Base resets & custom minimalist layout styling */
+html, body {
+  background-color: var(--color-premium-bg);
+  color: var(--color-premium-text);
+  font-family: var(--font-sans);
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Fine-tune selections to keep custom aesthetic clean */
+::selection {
+  background-color: #0A0A0F;
+  color: #F5F5F3;
+}

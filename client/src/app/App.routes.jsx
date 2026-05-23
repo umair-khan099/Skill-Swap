@@ -1,10 +1,11 @@
-import { createBrowserRouter, Navigate } from "react-router";
+import { createBrowserRouter } from "react-router";
 import AuthLayout from "../layout/AuthLayout"
 import MainLayout from "../layout/MainLayout"
 import ProtectedRoute from "../guards/ProtectedRoute";
 import PublicRoute from "../guards/PublicRoute";
 import NotFound from "../components/common/NotFound";
 import Home from "../features/main/pages/Home";
+import MainPage from "../features/main/pages/MainPage";
 import Login from "../features/auth/pages/Login";
 import Register from "../features/auth/pages/Register";
 
@@ -12,9 +13,8 @@ import Register from "../features/auth/pages/Register";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Navigate to="/login" replace />,
+    element: <MainPage />,
   },
-
   {
     path: "/login",
     element: (
