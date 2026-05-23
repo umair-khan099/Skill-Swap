@@ -62,7 +62,7 @@ const Footer = () => {
         </div>
 
         <div className="flex flex-wrap justify-center gap-6 md:gap-10 text-[15px] md:text-[16px] text-premium-text/60">
-          {['About SkillSwap', 'SkillSwap Products', 'Privacy', 'Terms'].map((item) => (
+          {['About Learnmize', 'Learnmize Products', 'Privacy', 'Terms'].map((item) => (
             <a
               key={item}
               href={`#${item.toLowerCase().replace(/\s+/g, '-')}`}
