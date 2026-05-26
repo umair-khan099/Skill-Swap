@@ -174,3 +174,7 @@ html, body {
     @apply font-mono;
   }
 }
+
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
