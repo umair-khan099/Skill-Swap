@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import cors from "cors";
 import { CONFIG } from "./config/dotenv.config.js";
-import { User } from "./model/user.model.js";
+import { errorMiddleware } from "./middleware/error.middleware.js";
 
 // app
 export const app = express();
@@ -17,15 +17,12 @@ app.use(
   }),
 );
 
-
-
 // middlewares
 app.use(express.json());
 app.use(morgan("dev"));
 
+import authRouter from "./routes/auth.route.js";
 
-app.post("/register", async (req, res) => {
-  const { userName, fullName, password, email } = req.body;
-  const response = await User.create({ userName, fullName, password, email });
-  res.json({ response });
-});
+app.use("/api/v1/auth", authRouter);
+
+app.use(errorMiddleware);
