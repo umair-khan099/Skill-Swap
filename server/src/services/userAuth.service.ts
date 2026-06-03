@@ -42,17 +42,19 @@ export class UserAuthService {
     const accessToken = user.generateAccessToken();
     const refreshToken = await user.generateRefreshToken();
 
+
     user.refreshToken = refreshToken;
 
+
     return {
-      user: {
-        userName: user.userName,
-        email: user.email,
-        isVerified: user.isVerified,
-        provider: user.provider,
-      },
-      accessToken,
-      refreshToken,
-    };
+  user: {
+    userName: user.userName,
+    email: user.email,
+    isVerified: user.isVerified,
+    provider: user.provider,
+  },
+  accessToken,
+  refreshToken,
+};
   }
 }
