@@ -8,6 +8,7 @@ const requiredEnv = [
   "REFRESH_TOKEN_KEY",
   "ACCESS_TOKEN_EXP",
   "REFRESH_TOKEN_EXP",
+  "JWT_SECRET"
 ] as const;
 
 requiredEnv.forEach((key) => {
@@ -35,5 +36,8 @@ export const CONFIG = {
 
   SMTP_EMAIL: process.env.SMTP_EMAIL,
 
-  SMTP_PASSWORD: process.env.SMTP_PASSWORD
+  SMTP_PASSWORD: process.env.SMTP_PASSWORD,
+  
+  JWT_SECRET: process.env.JWT_SECRET!,
+
 } as const;

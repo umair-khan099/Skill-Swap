@@ -22,7 +22,9 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 import authRouter from "./routes/auth.route.js";
+import profileRouter from "./routes/ profile.routes.js";
 
 app.use("/api/v1/auth", authRouter);
+app.use("/api/v1/profile", profileRouter);
 
 app.use(errorMiddleware);
