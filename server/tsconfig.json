@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "rootDir": ".",
+    "rootDir": "./src",
     "outDir": "./dist",
 
     "module": "nodenext",
     "moduleResolution": "nodenext",
     "target": "es6",
     "types": ["node"],
-
     "strict": true,
     "esModuleInterop": true
   },
