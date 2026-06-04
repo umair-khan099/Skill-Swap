@@ -30,4 +30,10 @@ export const CONFIG = {
   ACCESS_TOKEN_EXP: process.env.ACCESS_TOKEN_EXP!,
 
   REFRESH_TOKEN_EXP: process.env.REFRESH_TOKEN_EXP!,
+
+  RESEND_API_KEY: process.env.RESEND_API_KEY!,
+
+  SMTP_EMAIL: process.env.SMTP_EMAIL,
+
+  SMTP_PASSWORD: process.env.SMTP_PASSWORD
 } as const;
