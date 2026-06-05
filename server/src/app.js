@@ -1,9 +1,11 @@
 import express from "express";
 import morgan from "morgan";
+import helmet from "helmet";
 import cors from "cors";
+import hpp from "hpp";
+import compression from "compression";
+import indexRoute from "./routes/index.route.js";
 import { CONFIG } from "./config/dotenv.config.js";
-import { errorMiddleware } from "./middleware/error.middleware.js";
-import { authRouter } from "./routes/auth.route.js";
 
 // app
 export const app = express();
@@ -21,6 +23,6 @@ app.use(
 app.use(express.json());
 app.use(morgan("dev"));
 
+app.use("/api/v1", indexRoute);
 
-
-app.use(errorMiddleware);
+// app.use(errorMiddleware);
