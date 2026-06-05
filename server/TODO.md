@@ -1,7 +1,0 @@
-- [ ] Inspect all server/src and server root files for TypeScript/ts-specific constructs
-- [ ] Convert .ts files to .js (and update import/export paths)
-- [ ] Remove TypeScript-only syntax (types, interfaces, type-only imports)
-- [ ] Update package.json scripts/build settings to run JS (remove tsc build if unused)
-- [ ] Update tsconfig.json removal or make it harmless
-- [ ] Ensure Mongo model/repository/controller/service/router still work at runtime
-- [ ] Run server and fix any runtime/module-resolution issues (ESM)
