@@ -3,12 +3,12 @@ import morgan from "morgan";
 import cors from "cors";
 import { CONFIG } from "./config/dotenv.config.js";
 import { errorMiddleware } from "./middleware/error.middleware.js";
+import { authRouter } from "./routes/auth.route.js";
 
 // app
 export const app = express();
 
 // cors origin
-
 app.use(
   cors({
     origin: CONFIG.CORS_ORIGIN,
@@ -20,8 +20,6 @@ app.use(
 // middlewares
 app.use(express.json());
 app.use(morgan("dev"));
-
-import authRouter from "./routes/auth.route.js";
 
 app.use("/api/v1/auth", authRouter);
 
