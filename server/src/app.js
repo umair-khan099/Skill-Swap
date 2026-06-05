@@ -6,6 +6,7 @@ import hpp from "hpp";
 import compression from "compression";
 import indexRoute from "./routes/index.route.js";
 import { CONFIG } from "./config/dotenv.config.js";
+import { errorMiddleware } from "./middlewares/error.middleware.js";
 
 // app
 export const app = express();
@@ -25,4 +26,4 @@ app.use(morgan("dev"));
 
 app.use("/api/v1", indexRoute);
 
-// app.use(errorMiddleware);
+app.use(errorMiddleware);
