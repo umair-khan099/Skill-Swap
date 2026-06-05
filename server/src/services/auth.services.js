@@ -1,5 +1,7 @@
+import { emailMQ } from "../queue/email.queue.js";
 import { MongoUserRepository } from "../repositories/implimentation/MongoUserRepository.js";
 import { AppError } from "../utils/appError.js";
+import { newOtp } from "../utils/otp.js";
 
 export class AuthService {
   constructor() {
@@ -13,6 +15,29 @@ export class AuthService {
 
     if (isExists) {
       throw new AppError("user already exist", 409);
+    }
+
+    const otp = newOtp;
+
+    try {
+      emailMQ.add(
+        "emailVerification",
+        { 
+          email: email, 
+          otp: otp 
+        },
+        {
+          attempts: 3,
+          backoff: {
+            type: "exponential",
+            delay: 5000,
+          },
+          removeOnComplete: true,
+          removeOnFail: false,
+        },
+      );
+    } catch (error) {
+      console.log("Error while sending otp: " + error.message);
     }
 
     const user = await this.userRepository.createUser(userData);

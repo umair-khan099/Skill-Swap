@@ -8,6 +8,9 @@ const requiredEnv = [
   "REFRESH_TOKEN_KEY",
   "ACCESS_TOKEN_EXP",
   "REFRESH_TOKEN_EXP",
+  "REDIS_PASSWORD",
+  "REDIS_PORT",
+  "REDIS_HOST",
 ];
 
 requiredEnv.forEach((key) => {
@@ -36,4 +39,10 @@ export const CONFIG = {
   SMTP_EMAIL: process.env.SMTP_EMAIL,
 
   SMTP_PASSWORD: process.env.SMTP_PASSWORD,
+
+  REDIS_PASSWORD: process.env.REDIS_PASSWORD,
+
+  REDIS_HOST: process.env.REDIS_HOST,
+
+  REDIS_PORT: process.env.REDIS_PORT,
 };
