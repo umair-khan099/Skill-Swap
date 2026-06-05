@@ -2,7 +2,7 @@ import type { Types } from "mongoose";
 import { MongoUserRepository } from "../repository/implimentation/mongoUserReposisory.js";
 import { AppError } from "../utils/appError.js";
 import type { IUser } from "../model/user.model.js";
-
+ 
 type RegisterUserInput = {
   userName: string;
   fullName?: string;
