@@ -4,6 +4,6 @@ export const connection = {
   host: CONFIG.REDIS_HOST || "localhost", 
   port: Number(CONFIG.REDIS_PORT) || 6379,
   password: CONFIG.REDIS_PASSWORD || undefined,
-};
+}; 
 
 
