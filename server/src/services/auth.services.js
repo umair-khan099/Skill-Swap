@@ -22,9 +22,9 @@ export class AuthService {
     try {
       emailMQ.add(
         "emailVerification",
-        { 
-          email: email, 
-          otp: otp 
+        {
+          email: email,
+          otp: otp,
         },
         {
           attempts: 3,
@@ -61,9 +61,7 @@ export class AuthService {
 
   async loginUser(userData) {
     const { email, password } = userData;
-    const user = await this.userRepository
-      .findByEmail(email)
-      .select("+password");
+    const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
       throw new AppError("invalid credentials", 401);
@@ -89,5 +87,33 @@ export class AuthService {
       },
       tokens: { accessToken, refreshToken },
     };
+  }
+
+  async getMe(userId) {
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw new AppError("user not found", 404);
+    }
+    return user;
+  }
+
+  async logoutUser(userId) {
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw new AppError("user not found", 404);
+    }
+    user.refreshToken = null;
+    user.save({ validateBeforeSave: false });
+    return user;
+  }
+
+  async forgetPassword(userData) {
+    const { email, password } = userData;
+    const user = await this.userRepository.findByEmail(email);
+    if (!user) {
+      throw new AppError("user not found", 404);
+    }
+    user.password = password;
+    user.save()
   }
 }

@@ -7,10 +7,10 @@ export class MongoUserRepository extends IUserRepository {
   }
 
   async findByEmail(email) {
-    return await User.findOne({ email });
+    return await User.findOne({ email }).select("+password");
   }
 
   async findById(userId) {
-    return await User.findById(userId);
+    return await User.findById(userId).select("+refreshToken");
   }
 }

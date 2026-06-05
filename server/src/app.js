@@ -7,6 +7,7 @@ import compression from "compression";
 import indexRoute from "./routes/index.route.js";
 import { CONFIG } from "./config/dotenv.config.js";
 import { errorMiddleware } from "./middlewares/error.middleware.js";
+import cookieParser from "cookie-parser";
 
 // app
 export const app = express();
@@ -23,6 +24,7 @@ app.use(
 // middlewares
 app.use(express.json());
 app.use(morgan("dev"));
+app.use(cookieParser());
 
 app.use("/api/v1", indexRoute);
 
