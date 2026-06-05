@@ -5,9 +5,7 @@
   "main": "src/server.js",
   "scripts": {
     "dev": "node --watch src/server.js",
-    "start": "node src/server.js",
-    "worker": "node src/workers/email.worker.js",
-    "worker:dev": "nodemon src/workers/email.worker.js"
+    "start": "node src/server.js"
   },
   "keywords": [],
   "author": "",
