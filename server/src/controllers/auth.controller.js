@@ -57,14 +57,6 @@ export class AuthController {
       .json(new AppResponse(201, "user logout successfully"));
   });
 
-  forgetPassword = asyncHandler(async (req, res) => {
-    const { email, password } = req.body;
-
-    const result = await this.authService.forgetPassword(email, password);
-
-    res.status(201).json(new AppResponse(201, "password forget successfully"));
-  });
-
   forgotPassword = asyncHandler(async (req, res) => {
     const { email } = req.body;
     await this.authService.forgotPassword(email);
@@ -79,8 +71,8 @@ export class AuthController {
   resetPassword = asyncHandler(async (req, res) => {
     const { token, password } = req.body;
     await this.authService.resetPassword(token, password);
-    res
-      .status(200)
-      .json(new AppResponse(200, "Password has been reset successfully."));
+    res.status(200).json(
+      new AppResponse(200, "Password has been reset successfully.")
+    );
   });
 }
