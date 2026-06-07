@@ -1,3 +1,4 @@
+import Redis from "ioredis";
 import { CONFIG } from "../config/dotenv.config.js";
 
 export const connection = {
@@ -5,5 +6,7 @@ export const connection = {
   port: Number(CONFIG.REDIS_PORT) || 6379,
   password: CONFIG.REDIS_PASSWORD || undefined,
 }; 
+
+export const redis = new Redis(connection);
 
 

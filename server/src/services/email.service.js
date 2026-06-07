@@ -1,5 +1,5 @@
 import { CONFIG } from "../config/dotenv.config.js";
-import { otpTemplate } from "../templates/email.template.js";
+import { otpTemplate, forgotPasswordTemplate } from "../templates/email.template.js";
 import resend from "./external/resend.service.js";
 import { transporter } from "./external/smtp.service.js";
 
@@ -21,4 +21,14 @@ export class EmailService {
       html: otpTemplate(email, otp),
     });
   }
+
+  static async sendResetPasswordEmail(email, resetLink) {
+    await transporter.sendMail({
+      from: CONFIG.SMTP_EMAIL,
+      to: email,
+      subject: "Password Reset Request",
+      html: forgotPasswordTemplate(email, resetLink),
+    });
+  }
 }
+

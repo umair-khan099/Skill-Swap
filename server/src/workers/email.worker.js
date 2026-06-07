@@ -4,14 +4,16 @@ import { connection } from "../db/redis.db.js";
 const worker = new Worker(
   "email",
   async (job) => {
-    console.log("Sending verify otp in worker");
     try {
       if (job.name === "emailVerification") {
-        console.log(job.data);
         const { email, otp } = job.data;
         await EmailService.sendOTPBySMTP(email, otp);
+      } else if (job.name === "forgotPassword") {
+        const { email, resetLink } = job.data;
+        await EmailService.sendResetPasswordEmail(email, resetLink);
       }
     } catch (error) {
+      console.error("Worker error details:", error);
       throw new Error("Somthing went Wrong at email worker");
     }
   },

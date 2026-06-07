@@ -64,4 +64,23 @@ export class AuthController {
 
     res.status(201).json(new AppResponse(201, "password forget successfully"));
   });
+
+  forgotPassword = asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    await this.authService.forgotPassword(email);
+    res.status(200).json(
+        new AppResponse(
+          200,
+          "If an account exists, a password reset link has been sent."
+        )
+      );
+  });
+
+  resetPassword = asyncHandler(async (req, res) => {
+    const { token, password } = req.body;
+    await this.authService.resetPassword(token, password);
+    res
+      .status(200)
+      .json(new AppResponse(200, "Password has been reset successfully."));
+  });
 }
