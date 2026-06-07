@@ -20,11 +20,11 @@ export class AuthService {
     const otp = newOtp;
 
     try {
-      emailMQ.add(
+      await emailMQ.add(
         "emailVerification",
-        { 
-          email: email, 
-          otp: otp 
+        {
+          email: email,
+          otp: otp,
         },
         {
           attempts: 3,
@@ -45,7 +45,7 @@ export class AuthService {
     const refreshToken = user.generateRefreshToken();
 
     user.refreshToken = refreshToken;
-    user.isVerified = true; // Set to true for testing purposes
+    // user.isVerified = true; // Set to true for testing purposes
     await user.save({ validateBeforeSave: false });
 
     return {
@@ -61,9 +61,7 @@ export class AuthService {
 
   async loginUser(userData) {
     const { email, password } = userData;
-    const user = await this.userRepository
-      .findByEmail(email)
-      .select("+password");
+    const user = await this.userRepository.findByEmail(email);
 
     if (!user) {
       throw new AppError("invalid credentials", 401);
@@ -89,5 +87,31 @@ export class AuthService {
       },
       tokens: { accessToken, refreshToken },
     };
+  }
+
+  async getMe(userId) {
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw new AppError("user not found", 404);
+    }
+    return user;
+  }
+
+  async logoutUser(userId) {
+    const user = await this.userRepository.findById(userId);
+    if (!user) {
+      throw new AppError("user not found", 404);
+    }
+    user.refreshToken = null;
+    user.save({ validateBeforeSave: false });
+    return user;
+  }
+
+  async forgetPassword(userData) {
+    const { email, password } = userData;
+    const user = await this.userRepository.forgetPassword(email, password);
+    if (!user) {
+      throw new AppError("user not found", 404);
+    }
   }
 }
