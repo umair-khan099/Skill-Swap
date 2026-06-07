@@ -13,4 +13,12 @@ export class MongoUserRepository extends IUserRepository {
   async findById(userId) {
     return await User.findById(userId).select("+refreshToken");
   }
+
+  async forgetPassword(email, password) {
+    return await User.findOneAndUpdate(
+      { email },
+      { password },
+      { new: true },
+    ).select("+password");
+  }
 }

@@ -20,7 +20,7 @@ export class AuthService {
     const otp = newOtp;
 
     try {
-      emailMQ.add(
+      await emailMQ.add(
         "emailVerification",
         {
           email: email,
@@ -45,7 +45,7 @@ export class AuthService {
     const refreshToken = user.generateRefreshToken();
 
     user.refreshToken = refreshToken;
-    user.isVerified = true; // Set to true for testing purposes
+    // user.isVerified = true; // Set to true for testing purposes
     await user.save({ validateBeforeSave: false });
 
     return {
@@ -109,11 +109,9 @@ export class AuthService {
 
   async forgetPassword(userData) {
     const { email, password } = userData;
-    const user = await this.userRepository.findByEmail(email);
+    const user = await this.userRepository.forgetPassword(email, password);
     if (!user) {
       throw new AppError("user not found", 404);
     }
-    user.password = password;
-    user.save()
   }
 }

@@ -19,4 +19,6 @@ authRouter.get("/get-me", isAuth, authController.getMe);
 
 authRouter.post("/logout", isAuth, authController.logoutUser);
 
+authRouter.post("/forget-password", authController.forgetPassword);
+
 export default authRouter;

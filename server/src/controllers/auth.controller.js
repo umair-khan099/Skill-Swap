@@ -56,4 +56,12 @@ export class AuthController {
       .clearCookie("refreshToken")
       .json(new AppResponse(201, "user logout successfully"));
   });
+
+  forgetPassword = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+    const result = await this.authService.forgetPassword(email, password);
+
+    res.status(201).json(new AppResponse(201, "password forget successfully"));
+  });
 }
