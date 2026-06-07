@@ -3,4 +3,4 @@ import { CONFIG } from "../../config/dotenv.config.js";
  
 const resend =  new Resend(CONFIG.RESEND_API_KEY);
 
-export default resend;
+export default resend

@@ -2,7 +2,7 @@ import { Queue } from "bullmq";
 import { connection } from "../db/redis.db.js";
 
 export const emailMQ = new Queue("email", {
-  connection, 
+  connection,
   defaultJobOptions: {
     attempts: 6,
     backoff: {

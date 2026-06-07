@@ -10,7 +10,7 @@ const worker = new Worker(
         console.log(job.data);
         const { email, otp } = job.data;
         await EmailService.sendOTPBySMTP(email, otp);
-      };
+      }
     } catch (error) {
       throw new Error("Somthing went Wrong at email worker");
     }

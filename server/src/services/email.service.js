@@ -20,5 +20,5 @@ export class EmailService {
       subject: "OTP Verification",
       html: otpTemplate(email, otp),
     });
-  };
-};
+  }
+}
