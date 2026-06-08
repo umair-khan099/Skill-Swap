@@ -1,15 +1,7 @@
-import { Request, Response, NextFunction } from "express";
 import profileService from "../services/ profile.service.js";
 
-interface RequestWithUser extends Request {
-  user: {
-    id: string;
-    [key: string]: any;
-  };
-}
-
 class ProfileController {
-  async createProfile(req: RequestWithUser, res: Response, next: NextFunction) {
+  async createProfile(req, res, next) {
     try {
       const userId = req.user.id;
 
@@ -24,16 +16,20 @@ class ProfileController {
     }
   }
 
-  async getMyProfile(req: Request, res: Response) {
-    const profile = await profileService.getMyProfile(req.user.id);
+  async getMyProfile(req, res, next) {
+    try {
+      const profile = await profileService.getMyProfile(req.user.id);
 
-    res.status(200).json({
-      success: true,
-      data: profile,
-    });
+      res.status(200).json({
+        success: true,
+        data: profile,
+      });
+    } catch (error) {
+      next(error);
+    }
   }
 
-  async updateProfile(req: RequestWithUser, res: Response, next: NextFunction) {
+  async updateProfile(req, res, next) {
     try {
       const userId = req.user.id;
 
@@ -48,7 +44,7 @@ class ProfileController {
     }
   }
 
-  async getProfileByUsername(req: Request, res: Response, next: NextFunction) {
+  async getProfileByUsername(req, res, next) {
     try {
       const username = Array.isArray(req.params.username)
         ? req.params.username[0]

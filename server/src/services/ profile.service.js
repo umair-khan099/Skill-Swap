@@ -1,19 +1,13 @@
 import mongoose from "mongoose";
 import mongoProfileRepository from "../repository/implimentation/mongoProfileRepository.js";
 import { AppError } from "../utils/appError.js";
-import { IProfile } from "../model/profile.model.js";
 
 class ProfileService {
   constructor() {
     this.profileRepository = mongoProfileRepository;
   }
 
-  private profileRepository;
-
-  async createProfile(
-    userId: string | mongoose.Types.ObjectId,
-    profileData: Partial<IProfile>,
-  ) {
+  async createProfile(userId, profileData) {
     const existingProfile = await this.profileRepository.findByUserId(userId);
 
     if (existingProfile) {
@@ -22,7 +16,7 @@ class ProfileService {
 
     if (profileData.username) {
       const usernameExists = await this.profileRepository.findByUsername(
-        String(profileData.username),
+        String(profileData.username)
       );
 
       if (usernameExists) {
@@ -39,7 +33,7 @@ class ProfileService {
     });
   }
 
-  async getMyProfile(userId: string | mongoose.Types.ObjectId) {
+  async getMyProfile(userId) {
     const profile = await this.profileRepository.findByUserId(userId);
 
     if (!profile) {
@@ -49,40 +43,37 @@ class ProfileService {
     return profile;
   }
 
-  async updateProfile(
-  userId: string | mongoose.Types.ObjectId,
-  updateData: Partial<IProfile>,
-) {
-  delete updateData.userId;
+  async updateProfile(userId, updateData) {
+    delete updateData.userId;
 
-  if (updateData.username) {
-    const existingProfile =
-      await this.profileRepository.findByUsername(
-        String(updateData.username),
+    if (updateData.username) {
+      const existingProfile =
+        await this.profileRepository.findByUsername(
+          String(updateData.username)
+        );
+
+      if (
+        existingProfile &&
+        existingProfile.userId.toString() !== userId.toString()
+      ) {
+        throw new AppError("Username already taken", 400);
+      }
+    }
+
+    const updatedProfile =
+      await this.profileRepository.updateByUserId(
+        userId,
+        updateData
       );
 
-    if (
-      existingProfile &&
-      existingProfile.userId.toString() !== userId.toString()
-    ) {
-      throw new AppError("Username already taken", 400);
+    if (!updatedProfile) {
+      throw new AppError("Profile not found", 404);
     }
+
+    return updatedProfile;
   }
 
-  const updatedProfile =
-    await this.profileRepository.updateByUserId(
-      userId,
-      updateData,
-    );
-
-  if (!updatedProfile) {
-    throw new AppError("Profile not found", 404);
-  }
-
-  return updatedProfile;
-}
-
-  async getPublicProfile(username: string) {
+  async getPublicProfile(username) {
     const profile = await this.profileRepository.findByUsername(username);
 
     if (!profile) {

@@ -1,4 +1,4 @@
-export const otpTemplate = (email: string, otp: number) => `
+export const otpTemplate = (email, otp) => `
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,7 +23,7 @@ export const otpTemplate = (email: string, otp: number) => `
 
           <tr>
             <td style="padding-top:24px;color:#374151;font-size:16px;">
-              Hi ${email.split('@')[0]},
+              Hi ${email.split("@")[0]},
             </td>
           </tr>
 
@@ -76,4 +76,3 @@ export const otpTemplate = (email: string, otp: number) => `
 </body>
 </html>
 `;
-
