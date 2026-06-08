@@ -1,6 +1,7 @@
 import { User } from "../../model/user.model.js";
+import { UserRepository } from "../contracts/IUserRepositiory.js";
 
-export class MongoUserRepository {
+export class MongoUserRepository extends UserRepository {
   async createUser(userData) {
     return User.create(userData);
   }

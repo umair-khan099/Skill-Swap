@@ -1,7 +1,7 @@
-import mongoose from "mongoose";
 import { Profile } from "../../model/profile.model.js";
+import { ProfileRepository } from "../contracts/IProfileRepository.js";
 
-class MongoProfileRepository {
+class MongoProfileRepository extends ProfileRepository {
   async create(profileData) {
     return await Profile.create(profileData);
   }
